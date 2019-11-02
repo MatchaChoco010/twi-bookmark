@@ -1,0 +1,19 @@
+{
+  "manifest_version": 2,
+  "name": "Twi-Bookmark",
+  "version": "0.0.1",
+  "description": "!!! Twi-Bookmark !!!",
+  "icons": {
+    "48": "icons/logo-48.png"
+  },
+  "options_ui": {
+    "page": "options.html"
+  },
+  "browser_action": {
+    "default_icon": "icons/logo-32.png",
+    "default_title": "Twi-Bookmark",
+    "default_popup": "popup.html",
+    "browser_style": true
+  },
+  "permissions": ["storage", "tabs", "<all_urls>"]
+}
