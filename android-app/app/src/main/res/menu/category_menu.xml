@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="雑多" />
+    <item android:title="画像" />
+    <item android:title="ゲーム制作" />
+    <item android:title="エフェクト" />
+    <item android:title="アニメ作画" />
+    <item android:title="モーショングラフィックス" />
+    <item android:title="gif・映像" />
+    <item android:title="作曲" />
+    <item android:title="お絵かき" />
+    <item android:title="小説" />
+</menu>
