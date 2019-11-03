@@ -11,7 +11,8 @@
     </v-app-bar>
 
     <v-content class="text-center">
-      <a href="http://hogehoge.com/">
+      {{ title }}
+      <a :href="url">
         <div class="col-12 text-truncate text-left">{{ url }}</div>
       </a>
       <v-spacer></v-spacer>
@@ -58,6 +59,7 @@ export default Vue.extend({
       'gif・映像',
       'お絵かき'
     ],
+    title: '',
     url: '',
     category: '',
     comment: '',
@@ -66,14 +68,16 @@ export default Vue.extend({
     error_message: ''
   }),
   created: async function() {
-    const url = (await browser.tabs.query({
+    const tab = (await browser.tabs.query({
       currentWindow: true,
       active: true
-    }))[0].url
-    if (url === undefined) {
+    }))[0]
+    if (tab.url === undefined) {
+      this.title = 'example.com'
       this.url = 'http://example.com/'
     } else {
-      this.url = url
+      this.title = tab.title as string
+      this.url = tab.url
     }
   },
   methods: {
@@ -83,6 +87,7 @@ export default Vue.extend({
       try {
         const apiUrl = (await browser.storage.local.get('url'))['url'] as string
         const body = {
+          title: this.title,
           url: this.url,
           category: this.category,
           comment: this.comment
@@ -100,6 +105,9 @@ export default Vue.extend({
         if (res.status !== 200) throw new Error('Status code is not 200.')
         const resJson = await res.json()
         console.log(resJson)
+        if (resJson.status !== 'success') {
+          throw new Error(resJson.message)
+        }
         this.category = ''
         this.comment = ''
       } catch (e) {

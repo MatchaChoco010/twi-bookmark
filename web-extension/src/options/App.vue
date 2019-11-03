@@ -3,7 +3,7 @@
     <v-text-field
       :rules="rules"
       :value="url"
-      label="GAS API URL: https://example.com"
+      label="GAS API URL: https://script.google.com/macros/s/******"
       @change="onChange"
     ></v-text-field>
   </v-app>

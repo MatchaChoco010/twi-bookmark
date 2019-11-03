@@ -83,11 +83,38 @@ function doPost(e: PostEvent): GoogleAppsScript.Content.TextOutput {
 
   const ss = getSpreadSheet()
   const sheet = getSheet(ss, postData.category)
-  sheet.appendRow([postData.url, postData.comment])
+
+  try {
+    const twitter = /http(?:s)?:\/\/(?:www\.)?twitter\.com\/([a-zA-Z0-9_]+)/
+    if (twitter.test(postData.url)) {
+      const response = UrlFetchApp.fetch(
+        `https://publish.twitter.com/oembed?url=${encodeURIComponent(
+          postData.url
+        )}`
+      )
+      const content = JSON.parse(response.getContentText('UTF-8'))
+      sheet.appendRow([
+        postData.title,
+        postData.url,
+        postData.comment,
+        content.html
+      ])
+    } else {
+      sheet.appendRow([postData.title, postData.url, postData.comment])
+    }
+  } catch (e) {
+    return ContentService.createTextOutput(
+      JSON.stringify({
+        status: 'failure',
+        message: e.message
+      })
+    )
+  }
 
   return ContentService.createTextOutput(
     JSON.stringify({
-      status: 'success'
+      status: 'success',
+      message: ''
     })
   )
 }
