@@ -123,6 +123,8 @@ npm run build
 
 ![./screenshots/8.png](./screenshots/8.png)
 
+オプション画面を開いて、オプションのAPI URLの欄にメモしたURLを貼り付けます。
+
 ### Android App
 
 `android-app/`をAndroid Studioで開きます。
@@ -130,6 +132,8 @@ npm run build
 デバイスを接続し実行してインストールします。
 
 ![./screenshots/9.png](./screenshots/9.png)
+
+オプション画面を開いて、オプションのAPI URLの欄にメモしたURLを貼り付けます。
 
 ## その他
 
