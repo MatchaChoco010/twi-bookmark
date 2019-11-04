@@ -85,11 +85,12 @@ function doPost(e: PostEvent): GoogleAppsScript.Content.TextOutput {
   const sheet = getSheet(ss, postData.category)
 
   try {
-    const twitter = /http(?:s)?:\/\/(?:www\.)?twitter\.com\/([a-zA-Z0-9_]+)/
+    const twitter = /http(?:s)?:\/\/(?:www\.)?twitter\.com\/[a-zA-Z0-9_]+\/[a-zA-Z0-9_]+\/[0-9]+/
     if (twitter.test(postData.url)) {
+      const twitterUrl = postData.url.match(twitter)[0]
       const response = UrlFetchApp.fetch(
         `https://publish.twitter.com/oembed?url=${encodeURIComponent(
-          postData.url
+          twitterUrl
         )}`
       )
       const content = JSON.parse(response.getContentText('UTF-8'))

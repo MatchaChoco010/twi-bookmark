@@ -90,6 +90,7 @@ class MainActivity : AppCompatActivity() {
                     .responseObject<APIResponse> {_, response, result ->
                         when (result) {
                             is Result.Failure -> {
+                                println(response)
                                 val ex = result.getException()
                                 println(ex)
                                 runOnUiThread {
@@ -99,12 +100,13 @@ class MainActivity : AppCompatActivity() {
                                         Toast.LENGTH_LONG
                                     )
                                     toast.show()
+                                    sendButton.isEnabled = true
                                 }
-                                sendButton.isEnabled = true
                                 return@responseObject
                             }
                             is Result.Success -> {
                                 if (response.statusCode != 200) {
+                                    println(response)
                                     runOnUiThread {
                                         val toast = Toast.makeText(
                                             applicationContext,
@@ -112,12 +114,13 @@ class MainActivity : AppCompatActivity() {
                                             Toast.LENGTH_LONG
                                         )
                                         toast.show()
+                                        sendButton.isEnabled = true
                                     }
-                                    sendButton.isEnabled = true
                                     return@responseObject
                                 }
 
                                 if (result.value.status != "success") {
+                                    println(result.value.message)
                                     runOnUiThread {
                                         val toast = Toast.makeText(
                                             applicationContext,
@@ -125,8 +128,8 @@ class MainActivity : AppCompatActivity() {
                                             Toast.LENGTH_LONG
                                         )
                                         toast.show()
+                                        sendButton.isEnabled = true
                                     }
-                                    sendButton.isEnabled = true
                                     return@responseObject
                                 }
 
